@@ -1,0 +1,10 @@
+body {
+    font-family: 'Pangolin', cursive;
+    
+}
+
+th, 
+td{
+    text-align: center;
+    vertical-align: middle;
+}

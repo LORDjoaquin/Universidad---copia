@@ -1,0 +1,71 @@
+{% extends "./base.html" %}
+
+{% block title %}Gestión de Libros{% endblock %}
+
+{% block body %}
+<div class="row main-container">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    </div>
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert" >&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Gestion de Libros</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarLibros/" method="POST">{% csrf_token %}
+                    <div class="form-group mb-3">
+                        <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="Código" minlength="4" maxlength="6" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre"    maxlength="50" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" id="numexistentes" name="numexistentes" class="form-control"  minlength="1" maxlength="9" value="1" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success btn-block text-white"><i class="far fa-save"></i> Guardar </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-8">
+        <center><h1>Listado de libros existentes</h1></center>
+        <p class="text-md-start"></p>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre de libro</th>
+                        <th>Cantidad</th>
+                        <th colspan="3">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in Libros %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <td>{{ c.codigo }}</td>
+                        <td>{{ c.nombre }}</td>
+                        <td>{{ c.existencias }}</td>
+                        <td><a href="edicionLibros/{{c.codigo}}" class="btn btn-success"><i class="far fa-edit"></i> Editar Libro</a></td>
+                        <td><a href="eliminarLibros/{{c.codigo}}" class="btn btn-danger btnEliminacion"><i class="far fa-trash-alt"></i> Eliminar</a></td>
+                        
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

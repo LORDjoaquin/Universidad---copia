@@ -1,0 +1,30 @@
+{% extends "./base.html" %}
+
+{% block title %}Gestión de Libros{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-4">
+        <h2>Edicion de libro</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarLibros/" method="POST">{% csrf_token %}
+                    <div class="form-group mb-3">
+                        <input type="text" id="txtCodigo" name="txtCodigo" value="{{libro.codigo}}" class="form-control" placeholder="Código" minlength="4" maxlength="6"  readonly required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" id="txtNombre" name="txtNombre"  value="{{libro.nombre}}" class="form-control" placeholder="Nombre"    maxlength="50" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <input type="text" id="numexistentes" name="numexistentes"  value="{{libro.existencias}}" class="form-control"  minlength="1" maxlength="9" value="1" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-success btn-block text-white"><i class="far fa-save"></i> Guardar </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
